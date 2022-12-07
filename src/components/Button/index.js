@@ -2,8 +2,18 @@ import {Text, TouchableOpacity} from 'react-native'
 import {useNavigation} from '@react-navigation/native'
 import BackIcon from '../../assets/icons/back.svg'
 import Styles from './styles'
+import {memo} from 'react'
 
-const Button = ({back, landing, tambah, hapus, text, onPress}) => {
+const Button = ({
+  back,
+  landing,
+  tambah,
+  hapus,
+  update,
+  text,
+  onPress,
+  data,
+}) => {
   const navigation = useNavigation()
   if (back)
     return (
@@ -30,12 +40,25 @@ const Button = ({back, landing, tambah, hapus, text, onPress}) => {
         <Text style={Styles.text}>{text}</Text>
       </TouchableOpacity>
     )
+  if (update)
+    return (
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Update', {data})}
+        style={Styles.container}>
+        <Text style={Styles.text}>{text}</Text>
+      </TouchableOpacity>
+    )
   if (hapus)
     return (
       <TouchableOpacity onPress={onPress} style={Styles.containerHapus}>
         <Text style={Styles.text}>{text}</Text>
       </TouchableOpacity>
     )
+  return (
+    <TouchableOpacity onPress={onPress} style={Styles.container}>
+      <Text style={Styles.text}>{text}</Text>
+    </TouchableOpacity>
+  )
 }
 
-export default Button
+export default memo(Button)

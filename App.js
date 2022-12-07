@@ -8,6 +8,7 @@ import Detail from './src/screens/Detail'
 import Dosen from './src/screens/Dosen'
 import Info from './src/screens/Info'
 import Tambah from './src/screens/Tambah'
+import Update from './src/screens/Update'
 
 const Stack = createStackNavigator()
 
@@ -21,6 +22,7 @@ const App = () => {
         <Stack.Screen name="Detail" component={Detail} />
         <Stack.Screen name="Info" component={Info} />
         <Stack.Screen name="Tambah" component={Tambah} />
+        <Stack.Screen name="Update" component={Update} />
       </Stack.Navigator>
     </NavigationContainer>
   )

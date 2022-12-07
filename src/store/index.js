@@ -33,6 +33,15 @@ const useStore = create((set, get) => ({
         })
       })
     },
+    updateMahasiswa: async mahasiswaUpdate => {
+      set({loading: true})
+      fetchData('PATCH', 'mahasiswa', mahasiswaUpdate).then(() => {
+        fetchData('GET', 'mahasiswa').then(resp => {
+          const newData = resp.data.data
+          set({dataMahasiswa: newData, loading: false})
+        })
+      })
+    },
   },
 }))
 

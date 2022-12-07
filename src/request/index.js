@@ -21,6 +21,17 @@ export const fetchData = async (method, type, data) => {
         data,
       }
       return await axios.request(optionsPOST)
+    case 'PATCH':
+      const {id, ...dataUpdate} = data
+      const URLMahasiswaPATCH = `http://192.168.1.4:8000/api/mahasiswa/${id}/update`
+      const URLDosenPATCH = `http://192.168.1.4:8000/api/dosen/${id}/update`
+      const urlPATCH = type === 'dosen' ? URLDosenPATCH : URLMahasiswaPATCH
+      const optionsPATCH = {
+        url: urlPATCH,
+        method,
+        data: dataUpdate,
+      }
+      return await axios.request(optionsPATCH)
     case 'DELETE':
       const URLMahasiswaDELETE = `http://192.168.1.4:8000/api/mahasiswa/${data}/hapus`
       const URLDosenDELETE = `http://192.168.1.4:8000/api/dosen/${data}/hapus`
