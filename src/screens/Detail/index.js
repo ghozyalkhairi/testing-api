@@ -1,12 +1,16 @@
 import {SafeAreaView, Text, View} from 'react-native'
+import {useStoreActions} from '../../store'
 import Styles from './styles'
 import Button from '../../components/Button'
 import StudentIcon from '../../assets/icons/student.svg'
 import TeacherIcon from '../../assets/icons/teacher.svg'
+import {useNavigation} from '@react-navigation/native'
 
 const Detail = props => {
   const data = props.route.params.data
   const dosen = data.role === 'dosen'
+  const navigation = useNavigation()
+  const {deleteMahasiswa} = useStoreActions()
   return (
     <SafeAreaView style={Styles.container}>
       <Button back text="Kembali" />
@@ -26,7 +30,14 @@ const Detail = props => {
           </Text>
         </View>
         <View style={Styles.bottom}>
-          <Button text="Hubungi" />
+          <Button
+            onPress={() => {
+              deleteMahasiswa(data.id)
+              navigation.navigate('Mahasiswa')
+            }}
+            hapus
+            text="Hapus"
+          />
         </View>
       </View>
     </SafeAreaView>

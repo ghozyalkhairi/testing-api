@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native'
 import {useState} from 'react'
-import {fetchData} from '../../request'
+import {useStoreActions} from '../../store'
 import {View, Text, TextInput, Button, ToastAndroid} from 'react-native'
 import Styles from './styles'
 
@@ -9,18 +9,19 @@ const Tambah = () => {
   const [nama, setNama] = useState()
   const [nim, setNim] = useState()
   const [alamat, setAlamat] = useState()
+  const actions = useStoreActions()
   const submitData = () => {
     const mahasiswaBaru = {
       nama,
       nim,
       alamat,
     }
-    fetchData('POST', 'mahasiswa', mahasiswaBaru).then(() => {
-      ToastAndroid.show('Berhasil', ToastAndroid.SHORT)
-      navigation.navigate('Mahasiswa', {update: true})
+    actions.postMahasiswa(mahasiswaBaru).then(() => {
       setNama('')
       setNim('')
       setAlamat('')
+      ToastAndroid.show('Berhasil', ToastAndroid.SHORT)
+      navigation.navigate('Mahasiswa')
     })
   }
   return (
@@ -44,7 +45,7 @@ const Tambah = () => {
         value={alamat}
         onChangeText={text => setAlamat(text)}
       />
-      <Button onPress={() => submitData()} title="Tambah" />
+      <Button onPress={submitData} title="Tambah" />
     </View>
   )
 }
