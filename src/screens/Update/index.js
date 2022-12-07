@@ -49,7 +49,7 @@ const Update = props => {
         value={alamat}
         onChangeText={text => setAlamat(text)}
       />
-      <Button onPress={() => submitData()} text="Update" />
+      <Button onPress={submitData} text="Update" />
     </SafeAreaView>
   )
 }
