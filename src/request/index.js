@@ -21,5 +21,14 @@ export const fetchData = async (method, type, data) => {
         data,
       }
       return await axios.request(optionsPOST)
+    case 'DELETE':
+      const URLMahasiswaDELETE = `http://192.168.1.4:8000/api/mahasiswa/${data}/hapus`
+      const URLDosenDELETE = `http://192.168.1.4:8000/api/dosen/${data}/hapus`
+      const urlDELETE = type === 'dosen' ? URLDosenDELETE : URLMahasiswaDELETE
+      const optionsDELETE = {
+        url: urlDELETE,
+        method,
+      }
+      return await axios.request(optionsDELETE)
   }
 }

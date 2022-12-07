@@ -16,6 +16,14 @@ const Styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  containerHapus: {
+    backgroundColor: 'red',
+    padding: 14,
+    borderRadius: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   text: {
     color: '#F2F2F2',
     textAlign: 'center',
