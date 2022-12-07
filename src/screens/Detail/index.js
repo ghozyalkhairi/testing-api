@@ -35,6 +35,7 @@ const Detail = props => {
           </Text>
         </View>
         <View style={Styles.bottom}>
+          <Button update data={data} text="Update" />
           <Button hapus onPress={deleteMahasiswa} text="Hapus" />
         </View>
       </View>
