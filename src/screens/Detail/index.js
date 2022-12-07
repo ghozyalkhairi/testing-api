@@ -1,6 +1,6 @@
 import {SafeAreaView, Text, View, ToastAndroid} from 'react-native'
-import {fetchData} from '../../request'
 import {useNavigation} from '@react-navigation/native'
+import {useStoreActions} from '../../store'
 import Styles from './styles'
 import Button from '../../components/Button'
 import StudentIcon from '../../assets/icons/student.svg'
@@ -10,10 +10,11 @@ const Detail = props => {
   const navigation = useNavigation()
   const data = props.route.params.data
   const dosen = data.role === 'dosen'
+  const actions = useStoreActions()
   const deleteMahasiswa = () => {
     ToastAndroid.show('Menghapus', ToastAndroid.SHORT)
-    fetchData('DELETE', 'mahasiswa', data.id).then(() => {
-      navigation.navigate('Mahasiswa', {update: true})
+    actions.deleteMahasiswa(data.id).then(() => {
+      navigation.navigate('Mahasiswa')
     })
   }
   return (

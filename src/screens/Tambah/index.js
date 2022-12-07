@@ -1,7 +1,8 @@
 import {useNavigation} from '@react-navigation/native'
 import {useState} from 'react'
 import {useStoreActions} from '../../store'
-import {View, Text, TextInput, Button, ToastAndroid} from 'react-native'
+import Button from '../../components/Button'
+import {View, Text, TextInput, ToastAndroid} from 'react-native'
 import Styles from './styles'
 
 const Tambah = () => {
@@ -45,7 +46,7 @@ const Tambah = () => {
         value={alamat}
         onChangeText={text => setAlamat(text)}
       />
-      <Button onPress={submitData} title="Tambah" />
+      <Button onPress={submitData} text="Tambah" />
     </View>
   )
 }
