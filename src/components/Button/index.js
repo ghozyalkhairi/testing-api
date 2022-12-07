@@ -2,7 +2,6 @@ import {Text, TouchableOpacity} from 'react-native'
 import {useNavigation} from '@react-navigation/native'
 import BackIcon from '../../assets/icons/back.svg'
 import Styles from './styles'
-import {memo} from 'react'
 
 const Button = ({back, landing, tambah, hapus, text, onPress}) => {
   const navigation = useNavigation()
@@ -39,4 +38,4 @@ const Button = ({back, landing, tambah, hapus, text, onPress}) => {
     )
 }
 
-export default memo(Button)
+export default Button

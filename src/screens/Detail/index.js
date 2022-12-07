@@ -10,7 +10,7 @@ const Detail = props => {
   const data = props.route.params.data
   const dosen = data.role === 'dosen'
   const navigation = useNavigation()
-  const {deleteMahasiswa} = useStoreActions()
+  const actions = useStoreActions()
   return (
     <SafeAreaView style={Styles.container}>
       <Button back text="Kembali" />
@@ -32,7 +32,7 @@ const Detail = props => {
         <View style={Styles.bottom}>
           <Button
             onPress={() => {
-              deleteMahasiswa(data.id)
+              actions.deleteMahasiswa(data.id)
               navigation.navigate('Mahasiswa')
             }}
             hapus
