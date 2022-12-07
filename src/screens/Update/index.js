@@ -1,22 +1,24 @@
 import {useNavigation} from '@react-navigation/native'
 import {useState} from 'react'
 import {fetchData} from '../../request'
-import Button from '../../components/Button'
 import {Text, TextInput, ToastAndroid, SafeAreaView} from 'react-native'
+import Button from '../../components/Button'
 import Styles from './styles'
 
-const Tambah = () => {
+const Update = props => {
+  const data = props.route.params.data
   const navigation = useNavigation()
-  const [nama, setNama] = useState()
-  const [nim, setNim] = useState()
-  const [alamat, setAlamat] = useState()
+  const [nama, setNama] = useState(data.nama)
+  const [nim, setNim] = useState(data.nim)
+  const [alamat, setAlamat] = useState(data.alamat)
   const submitData = () => {
-    const mahasiswaBaru = {
+    const mahasiswaUpdate = {
       nama,
       nim,
       alamat,
+      id: data.id,
     }
-    fetchData('POST', 'mahasiswa', mahasiswaBaru).then(() => {
+    fetchData('PATCH', 'mahasiswa', mahasiswaUpdate).then(() => {
       setNama('')
       setNim('')
       setAlamat('')
@@ -26,7 +28,7 @@ const Tambah = () => {
   }
   return (
     <SafeAreaView style={Styles.container}>
-      <Text>Tambah Mahasiswa</Text>
+      <Text>Update Data {data.nama}</Text>
       <Text>Nama</Text>
       <TextInput
         style={Styles.input}
@@ -45,9 +47,9 @@ const Tambah = () => {
         value={alamat}
         onChangeText={text => setAlamat(text)}
       />
-      <Button onPress={() => submitData()} text="Tambah" />
+      <Button onPress={() => submitData()} text="Update" />
     </SafeAreaView>
   )
 }
 
-export default Tambah
+export default Update
