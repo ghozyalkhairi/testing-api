@@ -45,7 +45,7 @@ const Tambah = () => {
         value={alamat}
         onChangeText={text => setAlamat(text)}
       />
-      <Button onPress={() => submitData()} text="Tambah" />
+      <Button onPress={submitData} text="Tambah" />
     </SafeAreaView>
   )
 }
