@@ -33,6 +33,14 @@ const Styles = StyleSheet.create({
   bottom: {
     width: '100%',
   },
+  profil: {
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+    borderWidth: 4,
+    borderColor: '#2972DF',
+    marginBottom: 4,
+  },
 })
 
 export default Styles

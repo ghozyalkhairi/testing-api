@@ -9,16 +9,18 @@ import Button from '../../components/Button'
 const Mahasiswa = props => {
   const loading = useLoading()
   const actions = useStoreActions()
+
   useEffect(() => {
-    actions.fetchMahasiswa()
+    actions.getData('mahasiswa')
   }, [])
+
   return (
     <SafeAreaView style={Styles.container}>
-      <Button tambah text="Tambah Mahasiswa?" />
+      <Button tambah text="Tambah Mahasiswa?" dosen={false} />
       {loading ? (
         <ActivityIndicator color="#2972DF" size={50} style={Styles.spinner} />
       ) : (
-        <DataList />
+        <DataList dosen={false} />
       )}
       <Navbar routeName={props.route.name} />
     </SafeAreaView>

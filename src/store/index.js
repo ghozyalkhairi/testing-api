@@ -8,37 +8,44 @@ const useStore = create((set, get) => ({
   loading: true,
   // * Actions
   actions: {
-    fetchMahasiswa: async () => {
+    getData: async type => {
       set({loading: true})
-      fetchData('GET', 'mahasiswa').then(resp => {
+      fetchData('GET', type).then(resp => {
         const newData = resp.data.data
-        set({dataMahasiswa: newData, loading: false})
+        if (type === 'mahasiswa') set({dataMahasiswa: newData, loading: false})
+        if (type === 'dosen') set({dataDosen: newData, loading: false})
       })
     },
-    postMahasiswa: async mahasiswaBaru => {
+    postData: async (type, dataBaru) => {
       set({loading: true})
-      fetchData('POST', 'mahasiswa', mahasiswaBaru).then(() => {
-        fetchData('GET', 'mahasiswa').then(resp => {
+      fetchData('POST', type, dataBaru).then(() => {
+        fetchData('GET', type).then(resp => {
           const newData = resp.data.data
-          set({dataMahasiswa: newData, loading: false})
+          if (type === 'mahasiswa')
+            set({dataMahasiswa: newData, loading: false})
+          if (type === 'dosen') set({dataDosen: newData, loading: false})
         })
       })
     },
-    deleteMahasiswa: async idMahasiswa => {
+    deleteData: async (type, idData) => {
       set({loading: true})
-      fetchData('DELETE', 'mahasiswa', idMahasiswa).then(() => {
-        fetchData('GET', 'mahasiswa').then(resp => {
+      fetchData('DELETE', type, idData).then(() => {
+        fetchData('GET', type).then(resp => {
           const newData = resp.data.data
-          set({dataMahasiswa: newData, loading: false})
+          if (type === 'mahasiswa')
+            set({dataMahasiswa: newData, loading: false})
+          if (type === 'dosen') set({dataDosen: newData, loading: false})
         })
       })
     },
-    updateMahasiswa: async mahasiswaUpdate => {
+    updateData: async (type, dataUpdate) => {
       set({loading: true})
-      fetchData('PATCH', 'mahasiswa', mahasiswaUpdate).then(() => {
-        fetchData('GET', 'mahasiswa').then(resp => {
+      fetchData('PATCH', type, dataUpdate).then(() => {
+        fetchData('GET', type).then(resp => {
           const newData = resp.data.data
-          set({dataMahasiswa: newData, loading: false})
+          if (type === 'mahasiswa')
+            set({dataMahasiswa: newData, loading: false})
+          if (type === 'dosen') set({dataDosen: newData, loading: false})
         })
       })
     },

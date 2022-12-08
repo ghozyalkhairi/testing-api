@@ -13,6 +13,7 @@ const Button = ({
   text,
   onPress,
   data,
+  dosen,
 }) => {
   const navigation = useNavigation()
   if (back)
@@ -35,7 +36,7 @@ const Button = ({
   if (tambah)
     return (
       <TouchableOpacity
-        onPress={() => navigation.navigate('Tambah')}
+        onPress={() => navigation.navigate('Tambah', {dosen})}
         style={Styles.container}>
         <Text style={Styles.text}>{text}</Text>
       </TouchableOpacity>
@@ -43,7 +44,7 @@ const Button = ({
   if (update)
     return (
       <TouchableOpacity
-        onPress={() => navigation.navigate('Update', {data})}
+        onPress={() => navigation.navigate('Update', {data, dosen})}
         style={Styles.container}>
         <Text style={Styles.text}>{text}</Text>
       </TouchableOpacity>

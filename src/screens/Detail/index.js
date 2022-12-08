@@ -1,20 +1,19 @@
-import {SafeAreaView, Text, View, ToastAndroid} from 'react-native'
+import {SafeAreaView, Text, View, ToastAndroid, Image} from 'react-native'
 import {useNavigation} from '@react-navigation/native'
 import {useStoreActions} from '../../store'
 import Styles from './styles'
 import Button from '../../components/Button'
-import StudentIcon from '../../assets/icons/student.svg'
-import TeacherIcon from '../../assets/icons/teacher.svg'
 
 const Detail = props => {
   const navigation = useNavigation()
   const data = props.route.params.data
-  const dosen = data.role === 'dosen'
+  const dosen = props.route.params.dosen
   const actions = useStoreActions()
-  const deleteMahasiswa = () => {
+  const deleteData = () => {
+    const identitas = dosen ? 'dosen' : 'mahasiswa'
     ToastAndroid.show('Menghapus', ToastAndroid.SHORT)
-    actions.deleteMahasiswa(data.id).then(() => {
-      navigation.navigate('Mahasiswa')
+    actions.deleteData(identitas, data.id).then(() => {
+      navigation.navigate(dosen ? 'Dosen' : 'Mahasiswa')
     })
   }
   return (
@@ -22,22 +21,23 @@ const Detail = props => {
       <Button back text="Kembali" />
       <View style={Styles.infoContainer}>
         <View style={Styles.column}>
-          {dosen ? (
-            <TeacherIcon width={150} height={150} fill={'#2972DF'} />
-          ) : (
-            <StudentIcon width={150} height={150} fill={'#2972DF'} />
-          )}
+          <Image
+            style={Styles.profil}
+            source={{
+              uri: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=843&q=80',
+            }}
+          />
           <Text style={[Styles.nama, Styles.marginVertical]}>{data.nama}</Text>
           <Text style={[Styles.email, Styles.marginVertical]}>
             {data.alamat}
           </Text>
           <Text style={[Styles.email, Styles.marginVertical]}>
-            {data.nim ? data.nim : 'Tidak ada nomor hp'}
+            {dosen ? data.nidn : data.nim}
           </Text>
         </View>
         <View style={Styles.bottom}>
-          <Button update data={data} text="Update" />
-          <Button hapus onPress={deleteMahasiswa} text="Hapus" />
+          <Button update data={data} dosen={dosen} text="Update" />
+          <Button hapus onPress={deleteData} text="Hapus" />
         </View>
       </View>
     </SafeAreaView>

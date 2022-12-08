@@ -1,32 +1,26 @@
-import {useEffect, useState} from 'react'
+import {useEffect} from 'react'
+import {useLoading, useStoreActions} from '../../store'
 import {ActivityIndicator, SafeAreaView} from 'react-native'
-import {fetchData} from '../../request'
+import Button from '../../components/Button'
 import Styles from './styles'
-import Header from '../../components/Header'
 import Navbar from '../../components/Navbar'
 import DataList from '../../components/DataList'
 
 const Dosen = props => {
-  const [dataDosen, setDataDosen] = useState([])
-  const [loading, setLoading] = useState(true)
+  const loading = useLoading()
+  const actions = useStoreActions()
 
   useEffect(() => {
-    setLoading(true)
-    const fetchDataDosen = () =>
-      fetchData('dosen', 'GET').then(resp => {
-        setDataDosen(resp.data.data)
-        setLoading(false)
-      })
-
-    fetchDataDosen()
+    actions.getData('dosen')
   }, [])
+
   return (
     <SafeAreaView style={Styles.container}>
-      <Header text="Data Dosen" />
+      <Button tambah text="Tambah Dosen?" dosen={true} />
       {loading ? (
         <ActivityIndicator color="#2972DF" size={50} style={Styles.spinner} />
       ) : (
-        <DataList data={dataDosen} />
+        <DataList dosen={true} />
       )}
       <Navbar routeName={props.route.name} />
     </SafeAreaView>
