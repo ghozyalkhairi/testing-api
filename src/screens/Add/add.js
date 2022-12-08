@@ -3,46 +3,41 @@ import {useState} from 'react'
 import {fetchData} from '../../request'
 import Button from '../../components/Button'
 import {Text, TextInput, ToastAndroid, SafeAreaView} from 'react-native'
-import Styles from './styles'
+import Styles from '../Tambah/styles'
 
-const Tambah = props => {
-  const dosen = props.route.params.dosen
+const Add = () => {
   const navigation = useNavigation()
   const [nama, setNama] = useState()
-  const [id, setId] = useState()
+  const [nidn, setNidn] = useState()
   const [alamat, setAlamat] = useState()
   const submitData = () => {
-    const identitas = dosen ? 'dosen' : 'mahasiswa'
-    const dataBaru = dosen
-      ? {nama, nidn: id, alamat}
-      : {
-          nama,
-          nim: id,
-          alamat,
-        }
-    fetchData('POST', identitas, dataBaru).then(() => {
+    const dosenBaru = {
+      nama,
+      nidn,
+      alamat,
+    }
+    fetchData('POST', 'dosen', dosenBaru).then(() => {
       setNama('')
-      setId('')
+      setNidn('')
       setAlamat('')
       ToastAndroid.show('Berhasil', ToastAndroid.SHORT)
-      const route = dosen ? 'Dosen' : 'Mahasiswa'
-      navigation.navigate(route, {update: true})
+      navigation.navigate('Dosen', {update: true})
     })
   }
   return (
     <SafeAreaView style={Styles.container}>
-      <Text>{dosen ? 'Tambah Dosen' : 'Tambah Mahasiswa'}</Text>
+      <Text>Tambah Dosen</Text>
       <Text>Nama</Text>
       <TextInput
         style={Styles.input}
         value={nama}
         onChangeText={text => setNama(text)}
       />
-      <Text>{dosen ? 'NIDN' : 'NIM'}</Text>
+      <Text>NIDN</Text>
       <TextInput
         style={Styles.input}
-        value={id}
-        onChangeText={text => setId(text)}
+        value={nidn}
+        onChangeText={text => setNidn(text)}
       />
       <Text>Alamat</Text>
       <TextInput
@@ -55,4 +50,4 @@ const Tambah = props => {
   )
 }
 
-export default Tambah
+export default Add

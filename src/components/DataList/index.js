@@ -3,12 +3,14 @@ import Card from '../Card'
 import Styles from './styles'
 
 const DataList = props => {
+  const dosen = props.dosen
+  console.log(dosen)
   return (
     <FlatList
       data={props.data}
       contentContainerStyle={Styles.container}
       keyExtractor={item => item.id}
-      renderItem={({item}) => <Card data={item} />}
+      renderItem={({item}) => <Card data={item} dosen={dosen} />}
     />
   )
 }

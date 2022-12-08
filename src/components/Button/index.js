@@ -8,6 +8,7 @@ const Button = ({
   back,
   landing,
   tambah,
+  dosen,
   hapus,
   update,
   text,
@@ -35,7 +36,13 @@ const Button = ({
   if (tambah)
     return (
       <TouchableOpacity
-        onPress={() => navigation.navigate('Tambah')}
+        onPress={() => {
+          if (dosen) {
+            navigation.navigate('Tambah', {dosen: true})
+            return
+          }
+          navigation.navigate('Tambah')
+        }}
         style={Styles.container}>
         <Text style={Styles.text}>{text}</Text>
       </TouchableOpacity>
