@@ -33,7 +33,7 @@ const Mahasiswa = props => {
   }, [props.route.params?.update])
   return (
     <SafeAreaView style={Styles.container}>
-      <Button tambah text="Tambah Mahasiswa?" />
+      <Button tambah text="Tambah Mahasiswa?" dosen={false} />
       {loading ? (
         <ActivityIndicator color="#2972DF" size={50} style={Styles.spinner} />
       ) : (

@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react'
 import {ActivityIndicator, SafeAreaView} from 'react-native'
 import {fetchData} from '../../request'
 import Styles from './styles'
-import Header from '../../components/Header'
+import Button from '../../components/Button'
 import Navbar from '../../components/Navbar'
 import DataList from '../../components/DataList'
 
@@ -13,20 +13,35 @@ const Dosen = props => {
   useEffect(() => {
     setLoading(true)
     const fetchDataDosen = () =>
-      fetchData('dosen', 'GET').then(resp => {
+      fetchData('GET', 'dosen').then(resp => {
         setDataDosen(resp.data.data)
         setLoading(false)
       })
 
     fetchDataDosen()
   }, [])
+
+  useEffect(() => {
+    if (props.route.params?.update) {
+      console.log('UPDATING')
+      setLoading(true)
+      fetchData('GET', 'dosen').then(resp => {
+        setDataDosen(resp.data.data)
+        setLoading(false)
+        props.navigation.setParams({
+          update: false,
+        })
+      })
+    }
+  }, [props.route.params?.update])
+
   return (
     <SafeAreaView style={Styles.container}>
-      <Header text="Data Dosen" />
+      <Button tambah text="Tambah Dosen?" dosen={true} />
       {loading ? (
         <ActivityIndicator color="#2972DF" size={50} style={Styles.spinner} />
       ) : (
-        <DataList data={dataDosen} />
+        <DataList data={dataDosen} dosen={true} />
       )}
       <Navbar routeName={props.route.name} />
     </SafeAreaView>

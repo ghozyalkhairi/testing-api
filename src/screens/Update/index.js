@@ -7,23 +7,35 @@ import Styles from './styles'
 
 const Update = props => {
   const data = props.route.params.data
+  const dosen = props.route.params.dosen
   const navigation = useNavigation()
   const [nama, setNama] = useState(data.nama)
-  const [nim, setNim] = useState(data.nim)
+  const [nomorIdentitas, setNomorIdentitas] = useState(
+    dosen ? data.nidn : data.nim,
+  )
   const [alamat, setAlamat] = useState(data.alamat)
   const submitData = () => {
-    const mahasiswaUpdate = {
-      nama,
-      nim,
-      alamat,
-      id: data.id,
-    }
-    fetchData('PATCH', 'mahasiswa', mahasiswaUpdate).then(() => {
+    const identitas = dosen ? 'dosen' : 'mahasiswa'
+    const dataUpdate = dosen
+      ? {
+          nama,
+          nidn: nomorIdentitas,
+          alamat,
+          id: data.id,
+        }
+      : {
+          nama,
+          nim: nomorIdentitas,
+          alamat,
+          id: data.id,
+        }
+    fetchData('PATCH', identitas, dataUpdate).then(() => {
       setNama('')
-      setNim('')
+      setNomorIdentitas('')
       setAlamat('')
       ToastAndroid.show('Berhasil', ToastAndroid.SHORT)
-      navigation.navigate('Mahasiswa', {update: true})
+      const route = dosen ? 'Dosen' : 'Mahasiswa'
+      navigation.navigate(route, {update: true})
     })
   }
   return (
@@ -35,11 +47,11 @@ const Update = props => {
         value={nama}
         onChangeText={text => setNama(text)}
       />
-      <Text>NIM</Text>
+      <Text>{dosen ? 'NIDN' : 'NIM'}</Text>
       <TextInput
         style={Styles.input}
-        value={nim}
-        onChangeText={text => setNim(text)}
+        value={nomorIdentitas}
+        onChangeText={text => setNomorIdentitas(text)}
       />
       <Text>Alamat</Text>
       <TextInput
