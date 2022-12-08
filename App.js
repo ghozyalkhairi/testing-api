@@ -1,5 +1,7 @@
 import 'react-native-gesture-handler'
 import React from 'react'
+import {Provider} from 'react-redux'
+import {store} from './src/store'
 import {NavigationContainer} from '@react-navigation/native'
 import {createStackNavigator} from '@react-navigation/stack'
 import Landing from './src/screens/Landing'
@@ -14,17 +16,19 @@ const Stack = createStackNavigator()
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: false}}>
-        <Stack.Screen name="Landing" component={Landing} />
-        <Stack.Screen name="Mahasiswa" component={Mahasiswa} />
-        <Stack.Screen name="Dosen" component={Dosen} />
-        <Stack.Screen name="Detail" component={Detail} />
-        <Stack.Screen name="Info" component={Info} />
-        <Stack.Screen name="Tambah" component={Tambah} />
-        <Stack.Screen name="Update" component={Update} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{headerShown: false}}>
+          <Stack.Screen name="Landing" component={Landing} />
+          <Stack.Screen name="Mahasiswa" component={Mahasiswa} />
+          <Stack.Screen name="Dosen" component={Dosen} />
+          <Stack.Screen name="Detail" component={Detail} />
+          <Stack.Screen name="Info" component={Info} />
+          <Stack.Screen name="Tambah" component={Tambah} />
+          <Stack.Screen name="Update" component={Update} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   )
 }
 
