@@ -14,6 +14,7 @@ const Button = ({
   text,
   onPress,
   data,
+  dosen,
 }) => {
   const navigation = useNavigation();
   if (back)

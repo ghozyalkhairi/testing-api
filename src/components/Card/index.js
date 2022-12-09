@@ -6,7 +6,6 @@ import TeacherIcon from '../../assets/icons/teacher.svg'
 
 const Card = props => {
   const navigation = useNavigation()
-  // const dosen = props.data.role === 'dosen'
   const dosen = props.dosen
   return (
     <TouchableOpacity
