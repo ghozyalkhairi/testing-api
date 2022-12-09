@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
 import {useState} from 'react'
-import {useStoreActions} from '../../store'
+import {useDispatch} from 'react-redux'
+import {updateDataAsync} from '../../store/mahasiswaDosenThunks'
 import {Text, TextInput, ToastAndroid, SafeAreaView} from 'react-native'
 import Button from '../../components/Button'
 import Styles from './styles'
@@ -8,13 +9,13 @@ import Styles from './styles'
 const Update = props => {
   const data = props.route.params.data
   const dosen = props.route.params.dosen
+  const dispatch = useDispatch()
   const navigation = useNavigation()
   const [nama, setNama] = useState(data.nama)
   const [nomorIdentitas, setNomorIdentitas] = useState(
     dosen ? data.nidn : data.nim,
   )
   const [alamat, setAlamat] = useState(data.alamat)
-  const actions = useStoreActions()
   const submitData = () => {
     const identitas = dosen ? 'dosen' : 'mahasiswa'
     const dataBaru = dosen
@@ -30,14 +31,13 @@ const Update = props => {
           alamat,
           id: data.id,
         }
-    actions.updateData(identitas, dataBaru).then(() => {
-      setNama('')
-      setNomorIdentitas('')
-      setAlamat('')
-      ToastAndroid.show('Berhasil', ToastAndroid.SHORT)
-      const route = dosen ? 'Dosen' : 'Mahasiswa'
-      navigation.navigate(route, {update: true})
-    })
+    ToastAndroid.show('Mengupdate', ToastAndroid.SHORT)
+    dispatch(updateDataAsync({type: identitas, data: dataBaru}))
+    setNama('')
+    setNomorIdentitas('')
+    setAlamat('')
+    const route = dosen ? 'Dosen' : 'Mahasiswa'
+    navigation.navigate(route, {update: true})
   }
   return (
     <SafeAreaView style={Styles.container}>

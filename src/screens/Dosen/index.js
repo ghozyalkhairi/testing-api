@@ -1,5 +1,7 @@
 import {useEffect} from 'react'
-import {useLoading, useStoreActions} from '../../store'
+import {useDispatch, useSelector} from 'react-redux'
+import {selectLoading} from '../../store/mahasiswaDosenSlice'
+import {getDataAsync} from '../../store/mahasiswaDosenThunks'
 import {ActivityIndicator, SafeAreaView} from 'react-native'
 import Button from '../../components/Button'
 import Styles from './styles'
@@ -7,11 +9,11 @@ import Navbar from '../../components/Navbar'
 import DataList from '../../components/DataList'
 
 const Dosen = props => {
-  const loading = useLoading()
-  const actions = useStoreActions()
+  const loading = useSelector(selectLoading)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    actions.getData('dosen')
+    dispatch(getDataAsync({type: 'dosen'}))
   }, [])
 
   return (

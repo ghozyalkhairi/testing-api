@@ -1,12 +1,13 @@
 import {FlatList} from 'react-native'
-import {useDataMahasiswa, useDataDosen} from '../../store'
+import {selectMahasiswa, selectDosen} from '../../store/mahasiswaDosenSlice'
+import {useSelector} from 'react-redux'
 import Card from '../Card'
 import Styles from './styles'
 
 const DataList = props => {
   const dosen = props.dosen
-  const dataMahasiswa = useDataMahasiswa()
-  const dataDosen = useDataDosen()
+  const dataMahasiswa = useSelector(selectMahasiswa)
+  const dataDosen = useSelector(selectDosen)
   const renderItem = ({item}) => <Card data={item} dosen={dosen} />
   return (
     <FlatList

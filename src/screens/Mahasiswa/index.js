@@ -1,17 +1,19 @@
 import {ActivityIndicator, SafeAreaView} from 'react-native'
 import {useEffect} from 'react'
-import {useLoading, useStoreActions} from '../../store'
+import {useDispatch, useSelector} from 'react-redux'
+import {selectLoading} from '../../store/mahasiswaDosenSlice'
+import {getDataAsync} from '../../store/mahasiswaDosenThunks'
 import DataList from '../../components/DataList'
 import Navbar from '../../components/Navbar'
 import Styles from './styles'
 import Button from '../../components/Button'
 
 const Mahasiswa = props => {
-  const loading = useLoading()
-  const actions = useStoreActions()
+  const loading = useSelector(selectLoading)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    actions.getData('mahasiswa')
+    dispatch(getDataAsync({type: 'mahasiswa'}))
   }, [])
 
   return (

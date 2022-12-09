@@ -1,20 +1,20 @@
 import {SafeAreaView, Text, View, ToastAndroid, Image} from 'react-native'
 import {useNavigation} from '@react-navigation/native'
-import {useStoreActions} from '../../store'
+import {useDispatch} from 'react-redux'
+import {deleteDataAsync} from '../../store/mahasiswaDosenThunks'
 import Styles from './styles'
 import Button from '../../components/Button'
 
 const Detail = props => {
   const navigation = useNavigation()
+  const dispatch = useDispatch()
   const data = props.route.params.data
   const dosen = props.route.params.dosen
-  const actions = useStoreActions()
   const deleteData = () => {
-    const identitas = dosen ? 'dosen' : 'mahasiswa'
     ToastAndroid.show('Menghapus', ToastAndroid.SHORT)
-    actions.deleteData(identitas, data.id).then(() => {
-      navigation.navigate(dosen ? 'Dosen' : 'Mahasiswa')
-    })
+    const identitas = dosen ? 'dosen' : 'mahasiswa'
+    dispatch(deleteDataAsync({type: identitas, id: data.id}))
+    navigation.navigate(dosen ? 'Dosen' : 'Mahasiswa')
   }
   return (
     <SafeAreaView style={Styles.container}>

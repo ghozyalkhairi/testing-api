@@ -1,17 +1,18 @@
 import {useNavigation} from '@react-navigation/native'
 import {useState} from 'react'
-import {useStoreActions} from '../../store'
+import {useDispatch} from 'react-redux'
+import {addDataAsync} from '../../store/mahasiswaDosenThunks'
 import Button from '../../components/Button'
 import {View, Text, TextInput, ToastAndroid} from 'react-native'
 import Styles from './styles'
 
 const Tambah = props => {
   const dosen = props.route.params.dosen
+  const dispatch = useDispatch()
   const navigation = useNavigation()
   const [nama, setNama] = useState()
   const [id, setId] = useState()
   const [alamat, setAlamat] = useState()
-  const actions = useStoreActions()
   const submitData = () => {
     const identitas = dosen ? 'dosen' : 'mahasiswa'
     const dataBaru = dosen
@@ -25,14 +26,13 @@ const Tambah = props => {
           nim: id,
           alamat,
         }
-    actions.postData(identitas, dataBaru).then(() => {
-      setNama('')
-      setId('')
-      setAlamat('')
-      ToastAndroid.show('Berhasil', ToastAndroid.SHORT)
-      const route = dosen ? 'Dosen' : 'Mahasiswa'
-      navigation.navigate(route)
-    })
+    ToastAndroid.show('Menambah', ToastAndroid.SHORT)
+    setNama('')
+    setId('')
+    setAlamat('')
+    dispatch(addDataAsync({type: identitas, data: dataBaru}))
+    const route = dosen ? 'Dosen' : 'Mahasiswa'
+    navigation.navigate(route)
   }
   return (
     <View style={Styles.container}>
