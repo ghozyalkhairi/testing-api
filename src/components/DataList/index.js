@@ -4,6 +4,7 @@ import Styles from './styles'
 
 const DataList = props => {
   const dosen = props.dosen
+  console.log(dosen)
   return (
     <FlatList
       data={props.data}
