@@ -19,13 +19,12 @@ const mahasiwaDosenSlice = createSlice({
         state.loading = true
       })
       .addCase(getDataAsync.fulfilled, (state, action) => {
+        state.loading = false
         switch (action.payload.type) {
           case 'dosen':
-            state.loading = false
             state.dosen = action.payload.data.data
             break
           case 'mahasiswa':
-            state.loading = false
             state.mahasiswa = action.payload.data.data
             break
           default:
@@ -36,13 +35,12 @@ const mahasiwaDosenSlice = createSlice({
         state.loading = true
       })
       .addCase(addDataAsync.fulfilled, (state, action) => {
+        state.loading = false
         switch (action.payload.type) {
           case 'dosen':
-            state.loading = false
             state.dosen = action.payload.data.data
             break
           case 'mahasiswa':
-            state.loading = false
             state.mahasiswa = action.payload.data.data
             break
           default:
@@ -53,13 +51,12 @@ const mahasiwaDosenSlice = createSlice({
         state.loading = true
       })
       .addCase(updateDataAsync.fulfilled, (state, action) => {
+        state.loading = false
         switch (action.payload.type) {
           case 'dosen':
-            state.loading = false
             state.dosen = action.payload.data.data
             break
           case 'mahasiswa':
-            state.loading = false
             state.mahasiswa = action.payload.data.data
             break
           default:
@@ -70,13 +67,12 @@ const mahasiwaDosenSlice = createSlice({
         state.loading = true
       })
       .addCase(deleteDataAsync.fulfilled, (state, action) => {
+        state.loading = false
         switch (action.payload.type) {
           case 'dosen':
-            state.loading = false
             state.dosen = action.payload.data.data
             break
           case 'mahasiswa':
-            state.loading = false
             state.mahasiswa = action.payload.data.data
             break
           default:
